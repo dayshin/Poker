@@ -1,5 +1,5 @@
 import random
-
+from .Player import Player
 class Table:
     cards = ["2D","2C","2H","2S",
     "3D","3C","3H","3S",
