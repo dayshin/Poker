@@ -55,8 +55,9 @@ public class Table {
         }
         return;
     }
+
     //flop turn river
     //dealer & blinds
-    //betting
+    //betting & side pots
 
 }
