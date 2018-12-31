@@ -1,24 +1,33 @@
 //package poker
 public class Player {
+
     private String name;
-    private Card[] hole;
-    private int bank;
-    //private int chip;
+    private long bank;
+
     public Player() {
-        name = "bot";
-        bank = -1;
-        hole = new Card[2];
-        //chip = 0;
+        this("bot",-1);
+    }
+    public Player(String n, int b) {
+        this.name = n;
+        this.bank = b;
     }
 
-    public boolean receive(Card card) {
-        return false;
+    public String info() {
+        return name + ": " + bank;
     }
     public void print() {
-        for(Card c : hole) {
-            c.print();
+        System.out.println(this.info());
+    }
+
+    public boolean buy(int in) {
+        if(bank >= in) {
+            bank -= in;
+            return true;
         }
-        System.out.println();
+        return false;
+    }
+    public void receive(int out) {
+        bank += out;
     }
 
 }
