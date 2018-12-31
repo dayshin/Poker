@@ -8,7 +8,7 @@ public class Player {
     public Player() {
         this("bot",-1);
     }
-    public Player(String n, int b) {
+    public Player(String n, long b) {
         this.name = n;
         this.bank = b;
     }
@@ -20,7 +20,7 @@ public class Player {
         System.out.println(this.info());
     }
 
-    public boolean buy(int in) {
+    public boolean buy(long in) {
         if(bank >= in) {
             bank -= in;
             return true;

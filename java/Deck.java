@@ -42,12 +42,6 @@ public class Deck {
             card[i] = swap;
         }
     }
-    public void reset() {
-        next = 0;
-        for(int i = 0; i < size(); i++) {
-            card[i] = deck[i];
-        }
-    }
     public Card deal() {
         if(next >= size()) {
             System.out.println("end of deck");
@@ -57,5 +51,11 @@ public class Deck {
         card[next].print();
         return card[next++];
     }
-
+    public void reset() {
+        next = 0;
+        for(int i = 0; i < size(); i++) {
+            card[i] = deck[i];
+        }
+    }
+    
 }

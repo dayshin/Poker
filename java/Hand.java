@@ -10,5 +10,4 @@ public class Hand {
         return 0;
     }
 
-    
 }
