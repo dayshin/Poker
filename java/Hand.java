@@ -10,4 +10,11 @@ public class Hand {
         return 0;
     }
 
+    /* hand ranking
+     * enum? then {sf,q,fh,f,s,tp,p,h}
+     * enum.values().getIndex()?
+     * ...
+     *
+     * otherwise idk...
+     */
 }

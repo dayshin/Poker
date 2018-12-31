@@ -59,5 +59,6 @@ public class Table {
     //flop turn river
     //dealer & blinds
     //betting & side pots
+    //hand ranking
 
 }
