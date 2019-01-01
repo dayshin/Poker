@@ -41,7 +41,7 @@ public class Hand {
 
 
 
-    represent 5 card hand as 52 bits, left justified in groups of 4:
+    represent 5 card hand as 52 bits, right justified in groups of 4:
     hand = [aaaa][kkkk][qqqq][jjjj][tttt]...[2222]
         ex:[1111][0001][0000][0000][0000]...[0000]
 
