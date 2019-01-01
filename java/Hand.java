@@ -4,7 +4,6 @@ import java.util.*;
 public class Hand {
     private Card[] hole;
     public ArrayList<Card> allCards;
-    // if we handle comparisons in hand it has to be global
     /*public enum hands {
         sf,
         q,
@@ -13,15 +12,76 @@ public class Hand {
         s,
         tp,
         p,
-        h
-    }*/
-    public Card[] hand(Card[] community, Card[] holes) {
-        comCards = community;
-        hole = holes;
-        allCards.add(hole[0])
-        allCards.add(hole[1])
+        h;
+    }
+    [aaaakkkkqqqqjjjjtttt...2222aaaa]
 
-        if()
+    hand evaluator
+
+    convert hand data into 4 bool sequences by suit, ace to ace
+        c=[akqjt...2a],  d=[],    h=[],    s=[]
+
+    straight flush mask: sf = [11111]
+
+    direct searches:
+    straight flush: sf<<x & [c|d|h|s], x:0-9
+    straight: sf<<x & (c|d|h|s), x:0-9
+    flush: sf < [c|d|h|s]
+    quads: c&d&h&s
+    trips: c&d&h | c&d&s | c&h&s | d&h&s
+    pairs: c&d | c&h | c&h | d&h | d&s | h&s
+
+    for full house & two pair:
+        -form sets of trips and pairs
+        -two pair = top two pairs (if they exist)
+        -remove rank of top triple from pairs
+        -full house = top triple and top pair (if they exist)
+
+
+
+
+
+    represent 5 card hand as 52 bits, left justified in groups of 4:
+    hand = [aaaa][kkkk][qqqq][jjjj][tttt]...[2222]
+        ex:[1111][0001][0000][0000][0000]...[0000]
+
+    categorize with hand % 15:
+    high card: [1][1][1][1][1][0]...    = 1+1+1+1+1 = 5
+    pair: [11][1][1][1][0]...           = 3+1+1+1   = 6
+    two pair: [11][11][1][0]...         = 3+3+1     = 7
+    trips: [111][1][1][0]...            = 7+1+1     = 9
+    full house: [111][11][0]...         = 7+3       = 10
+    quads: [1111][1][0]...              = 15+1      = 1
+
+    7 card hands:
+    high card: [1][1][1][1][1][1][1][0]...  = 7
+    pair: [11][1][1][1][1][1][0]...         = 8
+    two pair: [11][11][1][1][1][0]...       = 9
+              [11][11][11][1][0]...         = 10
+    trips:  [111][1][1][1][1][0]...         = 11
+    full house: [111][11][1][1][0]...       = 12
+                [111][11][11][0]...         = 13
+                [111][111][1][0]...         = 0
+    quads: [1111][1][1][1][0]...            = 3
+           [1111][11][1][0]...              = 4
+           [1111][111][0]...                = 7 | 22
+
+
+
+
+    straights and flushes
+
+
+
+    f:
+    */
+    public Card[] hand(Card[] community, Card[] holes) {
+        //comCards = community;
+        hole = holes;
+        allCards.add(hole[0]);
+        allCards.add(hole[1]);
+
+        //if()
         return null;
     }
 
@@ -38,23 +98,7 @@ public class Hand {
         }
     }
 
-    public int sf(Card[] cards) {
-        return false;
-    }
-    public int q() {
-        return false;
-    }
-    public int fh() {
-        return false;
-    }
-    public int f() {
-        return false;
-    }
-    public int s() {
-        return false;
-    }
-
-
+/*
     public int compare(Hand other) {
         return 0;
     }
@@ -99,16 +143,12 @@ public class Hand {
         }
       }
     }
-      /* hand ranking
-     * enum? then {sf,q,fh,f,s,tp,p,h}
-     * enum.values().getIndex()?
-     * ...
-     *
-     * otherwise idk...
-     */
+    hand ranking
+    enum? then {sf,q,fh,f,s,tp,p,h}
+    enum.values().getIndex()?
+    ...
+    otherwise idk...
+    */
 
-     // hasPair()
-     // hasFlush()
-     // etc should be helpful.
 
 }
