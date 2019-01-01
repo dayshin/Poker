@@ -23,7 +23,7 @@ public class Card {
     }
 
     public int compare(Card other) {
-        return this.rank - other.rank;
+        return this.rank - other.rank; // I don't see how this is helpful
     }
 
 }
