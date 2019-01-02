@@ -12,7 +12,44 @@ public class Hand {
         }
     }
 
+    /*
+
+        hand evaluation
+
+        necessary representations of a hand:
+
+        count = [aaaa][kkkk][qqqq][jjjj][tttt]...[2222]
+            ex:[1111][0001][0000][0000][0000]...[0000]
+        rank = [akqjt...2a]
+            ex:[111110...]
+        suit = { [c,d,h,s][][][][]... }
+            ex:{[0][0][1][2][3]}
+
+        categorize with hand % 15:
+
+        5 card hands:
+
+        high card: [1][1][1][1][1][0]...                = 1+1+1+1+1 = 5 > 4
+        pair: [11][1][1][1][0]...                       = 3+1+1+1   = 6 > 5
+        two pair: [11][11][1][0]...                     = 3+3+1     = 7 > 6
+        trips: [111][1][1][0]...                        = 7+1+1     = 9 > 8
+        full house: [111][11][0]...                     = 7+3       = 10> 9
+        quads: [1111][1][0]...                          = 15+1      = 1 > 0
+        +
+        straight: rank/(rank&-rank) == 31                           = -2> 2
+        flush: suits[0] == (suits[1]|suits[2]|suits[3]|suits[4])    = -1> 3,1
+        =
+        result: quads,straight flush,straight,flush,high card,pair,two pair,X,trips,full house
+
+        hand comparison
+        int[] r = ranks after sorting by amount>rank
+        int t = hand evaluation
+
+    */
+
     public void evaluate() {
+        // s = [akqjt987654321] ignoring duplicates
+        // ex: [2,3,2,K,9] -> [01000100000010]
         long s = 1<<cards[0].rank|1<<cards[1].rank|1<<cards[2].rank|1<<cards[3].rank|1<<cards[4].rank;
         long v = 0;
 
@@ -23,6 +60,7 @@ public class Hand {
 
         for(int i = 0; i < 13; i++) {
             if(counts[i] > 0) {
+                //v = [aaaakkkkqqqqjjjjtttt99998888777766665555444433332222] as described above
                 v += (1L<<(i*4))*((1L<<counts[i])-1);
             }
         }
@@ -40,55 +78,6 @@ public class Hand {
 
     }
 
-    /*
-
-    hand evaluation
-
-    necessary representations of a hand:
-
-    count = [aaaa][kkkk][qqqq][jjjj][tttt]...[2222]
-        ex:[1111][0001][0000][0000][0000]...[0000]
-    rank = [akqjt...2a]
-        ex:[111110...]
-    suit = { [c,d,h,s][][][][]... }
-        ex:{[0][0][1][2][3]}
-
-    categorize with hand % 15:
-
-    5 card hands:
-
-    high card: [1][1][1][1][1][0]...                = 1+1+1+1+1 = 5 > 4
-    pair: [11][1][1][1][0]...                       = 3+1+1+1   = 6 > 5
-    two pair: [11][11][1][0]...                     = 3+3+1     = 7 > 6
-    trips: [111][1][1][0]...                        = 7+1+1     = 9 > 8
-    full house: [111][11][0]...                     = 7+3       = 10> 9
-    quads: [1111][1][0]...                          = 15+1      = 1 > 0
-    +
-    straight: rank/(rank&-rank) == 31                           = -2> 2
-    flush: suits[0] == (suits[1]|suits[2]|suits[3]|suits[4])    = -1> 3,1
-    =
-    result: quads,straight flush,straight,flush,high card,pair,two pair,X,trips,full house
-
-    hand comparison
-    int[] r = ranks after sorting by amount>rank
-    int t = hand evaluation
-
-    hand = r[+t*13]
-    a[0-4] > b[0-4]?
-
-    public maxfrequency(int[] n) {
-    int maxcounts = 0;
-
-    int[] counts = new int[n.length];
-
-    for (int i=0; i < n.length; i++) {
-        counts[n[i]]++;
-        if (maxcounts < counts[n[i]]) {
-            maxcounts = counts[n[i]];
-        }
-    }
-}
-    */
     public static final Card[] sort(Card[] cards) {
         int max = 0;
         int rank = 0;
