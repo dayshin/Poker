@@ -8,13 +8,12 @@ public class Card {
     protected int suit;
 
     public Card() {
-        this(0,0);
+        this((int)(Math.random()*13),(int)(Math.random()*4));
     }
     public Card(int r, int s) {
         this.rank = r;
         this.suit = s;
     }
-
     public String info() {
         return ranks[rank] + suits[suit];
     }
@@ -23,7 +22,7 @@ public class Card {
     }
 
     public int compare(Card other) {
-        return this.rank - other.rank; // I don't see how this is helpful
+        return this.rank - other.rank;
     }
 
 }

@@ -4,14 +4,14 @@ public class Deck {
 
     protected final Card[] deck;
     private Card[] card;
-    private int size;
+    private int amount;
     private int next;
 
     public Deck() {
         this(1);
     }
-    public Deck(int s) {
-        this.size = s;
+    public Deck(int a) {
+        this.amount = a;
         this.card = new Card[size()];
         deck = new Card[size()];
         for(int i = 0; i < size(); i++) {
@@ -32,7 +32,7 @@ public class Deck {
     }
 
     public int size() {
-        return size * 52;
+        return amount * 52;
     }
     public void shuffle() {
         for (int i = 0; i < size(); i++) {
@@ -43,12 +43,8 @@ public class Deck {
         }
     }
     public Card deal() {
-        if(next >= size()) {
-            System.out.println("end of deck");
-            reset();
-            return null;
-        }
-        card[next].print();
+        if(next >= size()) { throw new IndexOutOfBoundsException("no more cards"); }
+        //card[next].print();
         return card[next++];
     }
     public void reset() {
@@ -57,5 +53,5 @@ public class Deck {
             card[i] = deck[i];
         }
     }
-    
+
 }

@@ -1,154 +1,126 @@
-import java.util.*;
 //package poker
 
 public class Hand {
-    private Card[] hole;
-    public ArrayList<Card> allCards;
-    /*public enum hands {
-        sf,
-        q,
-        fh,
-        f,
-        s,
-        tp,
-        p,
-        h;
+    public Card[] cards;
+    private static final int[] results = {7,8,4,5,0,1,2,-1,3,6};
+    private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair","gote","trips","full house"};
+
+    public Hand() {
+        this.cards = new Card[5];
+        for(int i = 0; i < 5; i++) {
+            cards[i] = new Card();
+        }
     }
-    [aaaakkkkqqqqjjjjtttt...2222aaaa]
 
-    hand evaluator
+    public void evaluate() {
+        long s = 1<<cards[0].rank|1<<cards[1].rank|1<<cards[2].rank|1<<cards[3].rank|1<<cards[4].rank;
+        long v = 0;
 
-    convert hand data into 4 bool sequences by suit, ace to ace
-        c=[akqjt...2a],  d=[],    h=[],    s=[]
+        int[] counts = new int[13];
+        for(Card c : cards) {
+            counts[c.rank]++;
+        }
 
-    straight flush mask: sf = [11111]
+        for(int i = 0; i < 13; i++) {
+            if(counts[i] > 0) {
+                v += (1L<<(i*4))*((1L<<counts[i])-1);
+            }
+        }
 
-    direct searches:
-    straight flush: sf<<x & [c|d|h|s], x:0-9
-    straight: sf<<x & (c|d|h|s), x:0-9
-    flush: sf < [c|d|h|s]
-    quads: c&d&h&s
-    trips: c&d&h | c&d&s | c&h&s | d&h&s
-    pairs: c&d | c&h | c&h | d&h | d&s | h&s
+        v = v % 15 - 1;
+        if(v == 4) {
+            if(s/(s&-s) == 31) { v -= 2; }
+            if(cards[0].suit == cards[1].suit && cards[1].suit == cards[2].suit && cards[2].suit == cards[3].suit &&
+            cards[3].suit == cards[4].suit) { v--; }
+        }
+        for(Card c : cards) {
+            System.out.print(c.info() + " ");
+        }
+        System.out.println(" " + v + " " + names[(int)v]);
 
-    for full house & two pair:
-        -form sets of trips and pairs
-        -two pair = top two pairs (if they exist)
-        -remove rank of top triple from pairs
-        -full house = top triple and top pair (if they exist)
+    }
 
+    /*
 
+    hand evaluation
 
+    necessary representations of a hand:
 
-
-    represent 5 card hand as 52 bits, right justified in groups of 4:
-    hand = [aaaa][kkkk][qqqq][jjjj][tttt]...[2222]
+    count = [aaaa][kkkk][qqqq][jjjj][tttt]...[2222]
         ex:[1111][0001][0000][0000][0000]...[0000]
+    rank = [akqjt...2a]
+        ex:[111110...]
+    suit = { [c,d,h,s][][][][]... }
+        ex:{[0][0][1][2][3]}
 
     categorize with hand % 15:
-    high card: [1][1][1][1][1][0]...    = 1+1+1+1+1 = 5
-    pair: [11][1][1][1][0]...           = 3+1+1+1   = 6
-    two pair: [11][11][1][0]...         = 3+3+1     = 7
-    trips: [111][1][1][0]...            = 7+1+1     = 9
-    full house: [111][11][0]...         = 7+3       = 10
-    quads: [1111][1][0]...              = 15+1      = 1
 
-    7 card hands:
-    high card: [1][1][1][1][1][1][1][0]...  = 7
-    pair: [11][1][1][1][1][1][0]...         = 8
-    two pair: [11][11][1][1][1][0]...       = 9
-              [11][11][11][1][0]...         = 10
-    trips:  [111][1][1][1][1][0]...         = 11
-    full house: [111][11][1][1][0]...       = 12
-                [111][11][11][0]...         = 13
-                [111][111][1][0]...         = 0
-    quads: [1111][1][1][1][0]...            = 3
-           [1111][11][1][0]...              = 4
-           [1111][111][0]...                = 7 | 22
+    5 card hands:
 
+    high card: [1][1][1][1][1][0]...                = 1+1+1+1+1 = 5 > 4
+    pair: [11][1][1][1][0]...                       = 3+1+1+1   = 6 > 5
+    two pair: [11][11][1][0]...                     = 3+3+1     = 7 > 6
+    trips: [111][1][1][0]...                        = 7+1+1     = 9 > 8
+    full house: [111][11][0]...                     = 7+3       = 10> 9
+    quads: [1111][1][0]...                          = 15+1      = 1 > 0
+    +
+    straight: rank/(rank&-rank) == 31                           = -2> 2
+    flush: suits[0] == (suits[1]|suits[2]|suits[3]|suits[4])    = -1> 3,1
+    =
+    result: quads,straight flush,straight,flush,high card,pair,two pair,X,trips,full house
 
+    hand comparison
+    int[] r = ranks after sorting by amount>rank
+    int t = hand evaluation
 
+    hand = r[+t*13]
+    a[0-4] > b[0-4]?
 
-    straights and flushes
+    public maxfrequency(int[] n) {
+    int maxcounts = 0;
 
+    int[] counts = new int[n.length];
 
-
-    f:
-    */
-    public Card[] hand(Card[] community, Card[] holes) {
-        //comCards = community;
-        hole = holes;
-        allCards.add(hole[0]);
-        allCards.add(hole[1]);
-
-        //if()
-        return null;
+    for (int i=0; i < n.length; i++) {
+        counts[n[i]]++;
+        if (maxcounts < counts[n[i]]) {
+            maxcounts = counts[n[i]];
+        }
     }
+}
+    */
+    public static final Card[] sort(Card[] cards) {
+        int max = 0;
+        int rank = 0;
+        int[] counts = new int[12];
+        for(Card c : cards) {
+            if(max < ++counts[c.rank]) {
+                max = counts[c.rank];
+                rank = c.rank;
+            }
+        }
 
-    public static Card[] sort(Card[] cards) {
-        int n = cards.length;
+
+
+        int i;
+        int[] countf = new int[max];
+        for(i = 0; i < counts.length; i++) {
+            countf[counts[i]]++;
+        }
+        for(i = countf.length - 1; i > -1; i--) {
+            //for(int j = )
+        }
+        /*
         for(int i = 0; i < n-1; i++) {
             for(int j = 0; j < n-i-1; j++) {
-                if(cards[j].compare(cards[j+1]) > 0) {
-                    Card swap = cards[j];
-                    cards[j] = cards[j+1];
-                    cards[j+1] = swap;
+                if(c[j].compare(c[j+1]) > 0) {
+                    Card swap = c[j];
+                    c[j] = c[j+1];
+                    c[j+1] = swap;
                 }
             }
-        }
+        }*/
+        return cards;
     }
-
-/*
-    public int compare(Hand other) {
-        return 0;
-    }
-    // return 0 if no pair
-    // return rank of pair if pair exists
-    public int hasPair(){
-      for(int i=0;i<allCards.length;i++){
-        for(int j=0;j<allCards.length;j++){
-          if(j == i) continue;
-          if( allCards[i].rank == allCards[j].rank){
-            return allCards[i].rank;
-          }
-        }
-      }
-      return
-    }
-    public int hasTwoPair(){
-      // first discovered pair
-      firstPair = hasPair();
-      if(firstPair == 0) return 0;
-      for(int i=0;i<allCards.length;i++){
-        for(int j=0;j<allCards.length;j++){
-          if(j == i) continue;
-          if( allCards[i].rank == allCards[j].rank){
-            if() allCards[i].rank;
-          }
-        }
-      }
-    }
-    public int hasTrips(){
-      for(int i=0;i<allCards.length;i++){
-        for(int j=0;j<allCards.length;j++){
-          for(int k=0;k<allCards.length;k++){
-            if(i == j || j == k) continue;
-            rank1 = allCards[i].rank;
-            rank2 = allCards[j].rank;
-            rank3 = allCards[k].rank;
-            if(rank1 == rank2 && rank2 == rank3){
-              return allCards[i].rank;
-            }
-          }
-        }
-      }
-    }
-    hand ranking
-    enum? then {sf,q,fh,f,s,tp,p,h}
-    enum.values().getIndex()?
-    ...
-    otherwise idk...
-    */
-
 
 }

@@ -1,4 +1,66 @@
+
+
+
+
+
+
+
 /*
+    public int compare(Hand other) {
+        return 0;
+    }
+    // return 0 if no pair
+    // return rank of pair if pair exists
+    public int hasPair(){
+      for(int i=0;i<allCards.length;i++){
+        for(int j=0;j<allCards.length;j++){
+          if(j == i) continue;
+          if( allCards[i].rank == allCards[j].rank){
+            return allCards[i].rank;
+          }
+        }
+      }
+      return
+    }
+    public int hasTwoPair(){
+      // first discovered pair
+      firstPair = hasPair();
+      if(firstPair == 0) return 0;
+      for(int i=0;i<allCards.length;i++){
+        for(int j=0;j<allCards.length;j++){
+          if(j == i) continue;
+          if( allCards[i].rank == allCards[j].rank){
+            if() allCards[i].rank;
+          }
+        }
+      }
+    }
+    public int hasTrips(){
+      for(int i=0;i<allCards.length;i++){
+        for(int j=0;j<allCards.length;j++){
+          for(int k=0;k<allCards.length;k++){
+            if(i == j || j == k) continue;
+            rank1 = allCards[i].rank;
+            rank2 = allCards[j].rank;
+            rank3 = allCards[k].rank;
+            if(rank1 == rank2 && rank2 == rank3){
+              return allCards[i].rank;
+            }
+          }
+        }
+      }
+    }
+    hand ranking
+    enum? then {sf,q,fh,f,s,tp,p,h}
+    enum.values().getIndex()?
+    ...
+    otherwise idk...
+    */
+
+
+
+//public ArrayList<Card> allCards;
+
 
 private enum Suit { CLUB, DIAMOND, HEART, SPADE; }
 private enum Value {
@@ -25,7 +87,26 @@ int n = arr.length;
                     int temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
-                } 
+                }
+
+                convert hand data into 4 bool sequences by suit, ace to ace
+                    c=[akqjt...2a],  d=[],    h=[],    s=[]
+
+                straight flush mask: sf = [11111]
+
+                direct searches:
+                straight flush: sf<<x & [c|d|h|s], x:0-9
+                straight: sf<<x & (c|d|h|s), x:0-9
+                flush: sf < [c|d|h|s]
+                quads: c&d&h&s
+                trips: c&d&h | c&d&s | c&h&s | d&h&s
+                pairs: c&d | c&h | c&h | d&h | d&s | h&s
+
+                for full house & two pair:
+                    -form sets of trips and pairs
+                    -two pair = top two pairs (if they exist)
+                    -remove rank of top triple from pairs
+                    -full house = top triple and top pair (if they exist)
 
 //private Card[] hole;
 //public static final card
@@ -36,9 +117,35 @@ public boolean receive(Card card) {
     return false;
 }
 
-*/
 
-/*
+
+    6 card hands:
+    high card: [1][1][1][1][1][1][0]... = 6
+    pair: [11][1][1][1][1][0]...        = 7
+    two pair: [11][11][1][1][0]...      = 8
+              [11][11][11][0]...        = 9
+    trips: [111][1][1][1][0]...         = 10
+    full house: [111][11][1][0]...      = 11
+                [111][111][0]...        = 14
+    quads: [1111][1][1][0]...           = 2
+           [1111][11][0]...             = 3
+
+
+    7 card hands:
+    high card: [1][1][1][1][1][1][1][0]...  = 7
+    pair: [11][1][1][1][1][1][0]...         = 8
+    two pair: [11][11][1][1][1][0]...       = 9
+              [11][11][11][1][0]...         = 10
+    trips:  [111][1][1][1][1][0]...         = 11
+    full house: [111][11][1][1][0]...       = 12
+                [111][11][11][0]...         = 13
+                [111][111][1][0]...         = 0
+    quads: [1111][1][1][1][0]...            = 3
+           [1111][11][1][0]...              = 4
+           [1111][111][0]...                = 7 | 22
+
+
+
 Deck d = new Deck();
 d.print();
 d.shuffle();
@@ -46,4 +153,3 @@ d.print();
 d.reset();
 d.print();
 for(int i = 0; i < 5; i++) { d.deal(); }
-*/
