@@ -8,8 +8,9 @@ public class Table {
 
     private Player[] players;
 
+    //perhaps hands[] contains the community in 0
     private Hand[] hands;
-    private Card[] community;
+    private Hand community;
 
     private long[] pots;
     private int[][] side;
