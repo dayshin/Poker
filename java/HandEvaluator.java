@@ -2,13 +2,14 @@
 import java.util.*;
 
 public class HandEvaluator {
-    private static final int[] results = {7,8,4,5,0,1,2,-1,3,6};
-    private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair","gote","trips","full house"};
+    private static final int[] results = {7,8,4,5,0,1,2,3,6};
+    private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "placeholder", "trips","full house"};
+    public static final int[] evaluator = {160, 140, 80, 100, 0, 20, 40,-100, 60, 120 };
 
     private HandEvaluator() {}
 
     //finds highest 5 card combo given 5-7 cards
-    public static final void evaluate(Card[] cards) {
+    public static final int evaluate(Card[] cards) {
         /*
 
             step 1: sort by rules {frequency, rank}
@@ -51,7 +52,8 @@ public class HandEvaluator {
         for(Card c : cards) {
             System.out.print(c.info() + " ");
         }
-        System.out.println(" " + id + " " + names[(int)id]);
+        System.out.println(" " + id + " " + names[(int)id] + " " + evaluator[(int)id]);
+        return evaluator[(int)id];
     }
 
     //checks for straight in first 5 cards of cards array
@@ -67,11 +69,13 @@ public class HandEvaluator {
 
     public static void sevenCardEvaluate(Card[] cards){
         Card[] mutableCards = new Card[5];
+        Card[] topFive = new Card[5];
+        int topNum = -1;
         for(int i=0;i<7;i++){
             for(int j=i;j<7;j++){
                 if(i == j) {continue;}
-                System.out.println("first excluded is " + i);
-                System.out.println("second excluded is " + j);
+                // System.out.println("first excluded is " + i);
+                // System.out.println("second excluded is " + j);
 
                 int index = 0;
                 for(int k=0;k<7;k++){
@@ -79,10 +83,14 @@ public class HandEvaluator {
                     //System.out.println(index);
                     mutableCards[index] = cards[k];
                     index++;
-
                 }
-            evaluate(mutableCards);
+            if( evaluate(mutableCards) >= topNum ){
+                System.arraycopy(mutableCards, 0, topFive, 0 , 5);
+                topNum = evaluate(mutableCards);
+                }
             }
         }
+        System.out.println("This is the top combination");
+        System.out.println(evaluate(topFive));
     }
 }

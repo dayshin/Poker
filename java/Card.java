@@ -1,9 +1,8 @@
 //package poker;
 
 public class Card {
-    public static final String[] suits = {"♣","♦","♥","♠"};
+    public static final String[] suits = {"c","d","h","s"};
     public static final String[] ranks = {"2","3","4","5","6","7","8","9","T","J","Q","K","A"};
-
     protected int rank;
     protected int suit;
 
