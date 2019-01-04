@@ -6,7 +6,7 @@ public class Test {
         for(int i = 0; i < 7; i++) {
             cards[i] = new Card(i,0);
         }
-        HandEvaluator.sevenCardEvaluate(cards);
+        //HandEvaluator.sevenCardEvaluate(cards);
 
         //full house
         for(int i = 0; i < 5; i++) {
@@ -44,6 +44,6 @@ public class Test {
             sevenCards[i] = new Card();
         }
         //HandEvaluator.sevenCardEvaluate(sevenCards);
-
+        HandEvaluator.compareHands(cards, sevenCards);
     }
 }
