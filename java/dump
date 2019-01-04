@@ -1,6 +1,30 @@
 
 
 
+public static Card[] sort(Card[] cards) {
+    int max = 0;
+    int rank = 0;
+        int[] counts = new int[12];
+        for(Card c : cards) {
+            if(max < ++counts[c.rank]) {
+                max = counts[c.rank];
+                rank = c.rank;
+            }
+        }
+
+        int i;
+        int[] countf = new int[max];
+        for(i = 0; i < counts.length; i++) {
+            countf[counts[i]]++;
+        }
+        for(i = countf.length - 1; i > -1; i--) {
+            //for(int j = )
+        }
+        return cards;
+    }
+
+
+
 
 /*
 
