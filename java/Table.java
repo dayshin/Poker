@@ -9,8 +9,7 @@ public class Table {
     private Player[] players;
 
     //perhaps hands[] contains the community in 0
-    private Hand[] hands;
-    private Hand community;
+    private Card[][] hands;
 
     private long[] pots;
     private int[][] side;
@@ -33,7 +32,7 @@ public class Table {
         this.name = s;
 
         this.players = new Player[p];
-        this.hands = new Hand[p];
+        this.hands = new Card[p+1][5];
         this.side = new int[p][p];
         this.pots = new long[p];
 

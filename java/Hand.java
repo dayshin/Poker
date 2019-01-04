@@ -1,7 +1,6 @@
 //package poker
 
 public class Hand {
-    public Card[] cards;
     private static final int[] results = {7,8,4,5,0,1,2,-1,3,6};
     private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair","gote","trips","full house"};
 
@@ -11,7 +10,6 @@ public class Hand {
             cards[i] = new Card();
         }
     }
-
 
     public void evaluate() {
         long s = 1<<cards[0].rank|1<<cards[1].rank|1<<cards[2].rank|1<<cards[3].rank|1<<cards[4].rank;
@@ -35,9 +33,11 @@ public class Hand {
             if(cards[0].suit == cards[1].suit && cards[1].suit == cards[2].suit && cards[2].suit == cards[3].suit &&
             cards[3].suit == cards[4].suit) { id--; }
         }
+
         for(Card c : cards) {
             System.out.print(c.info() + " ");
         }
+
         System.out.println(" " + id + " " + names[(int)id]);
 
     }
