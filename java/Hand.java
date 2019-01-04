@@ -15,7 +15,7 @@ public class Hand {
 
     public void evaluate() {
         long s = 1<<cards[0].rank|1<<cards[1].rank|1<<cards[2].rank|1<<cards[3].rank|1<<cards[4].rank;
-        long v = 0;
+        long id = 0;
 
         int[] counts = new int[13];
         for(Card c : cards) {
@@ -24,21 +24,21 @@ public class Hand {
 
         for(int i = 0; i < 13; i++) {
             if(counts[i] > 0) {
-                v += (1L<<(i*4))*((1L<<counts[i])-1);
+                id += (1L<<(i*4))*((1L<<counts[i])-1);
             }
         }
 
-        v = v % 15 - 1;
+        id = id % 15 - 1;
 
-        if(v == 4) {
-            if(s/(s&-s) == 31) { v -= 2; }
+        if(id == 4) {
+            if(s/(s&-s) == 31) { id -= 2; }
             if(cards[0].suit == cards[1].suit && cards[1].suit == cards[2].suit && cards[2].suit == cards[3].suit &&
-            cards[3].suit == cards[4].suit) { v--; }
+            cards[3].suit == cards[4].suit) { id--; }
         }
         for(Card c : cards) {
             System.out.print(c.info() + " ");
         }
-        System.out.println(" " + v + " " + names[(int)v]);
+        System.out.println(" " + id + " " + names[(int)id]);
 
     }
 
