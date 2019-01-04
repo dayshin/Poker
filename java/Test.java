@@ -39,6 +39,11 @@ public class Test {
         }
         HandEvaluator.evaluate(cards);
 
+        Card[] sevenCards = new Card[7];
+        for(int i = 0; i < 7; i++) {
+            sevenCards[i] = new Card();
+        }
+        HandEvaluator.sevenCardEvaluate(sevenCards);
 
     }
 }

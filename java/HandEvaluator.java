@@ -1,4 +1,5 @@
 //package poker
+import java.util.*;
 
 public class HandEvaluator {
     private static final int[] results = {7,8,4,5,0,1,2,-1,3,6};
@@ -62,5 +63,26 @@ public class HandEvaluator {
     //checks for flush in first 5 cards of cards array
     public static boolean flush(Card[] cards) {
         return cards[0].suit == cards[1].suit && cards[1].suit == cards[2].suit && cards[2].suit == cards[3].suit && cards[3].suit == cards[4].suit;
+    }
+
+    public static void sevenCardEvaluate(Card[] cards){
+        Card[] mutableCards = new Card[5];
+        for(int i=0;i<7;i++){
+            for(int j=i;j<7;j++){
+                if(i == j) {continue;}
+                System.out.println("first excluded is " + i);
+                System.out.println("second excluded is " + j);
+
+                int index = 0;
+                for(int k=0;k<7;k++){
+                    if(k == i || k == j){ continue;}
+                    //System.out.println(index);
+                    mutableCards[index] = cards[k];
+                    index++;
+
+                }
+            evaluate(mutableCards);
+            }
+        }
     }
 }
