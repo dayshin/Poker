@@ -8,8 +8,19 @@ public class HandEvaluator {
 
     private HandEvaluator() {}
 
-    //finds highest 5 card combo given 5-7 cards
-    public static final int evaluate(Card[] cards) {
+
+    public static final int evaluate(Card[] cards){
+        long id = getId(cards);
+        //System.out.println(id);
+        int handRating = evaluator[(int)id];
+        handRating += rankOfTopFrequency(cards) + 2;
+        //System.out.println(handRating);
+
+        return handRating;
+    }
+
+
+    public static final long getId(Card[] cards) {
         /*
 
             step 1: sort by rules {frequency, rank}
@@ -30,6 +41,8 @@ public class HandEvaluator {
 
         */
 
+        // hand has hole cards, a number, a top combination, and id
+        // in table you can do handeval.top
 
         //step 1, %15 categorize
         long id = 0;
@@ -48,14 +61,47 @@ public class HandEvaluator {
             if(straight(cards)) { id-=2; }
             if(flush(cards)) { id-=1; }
         }
+        return id;
+        //System.out.println(" " + id + " " + names[(int)id] + " " + evaluator[(int)id]);
+        //printHand(id);
+        //return evaluator[(int)id] + topRank(cards);
+    }
 
+    public static int rankOfTopFrequency(Card[] cards){
+        int[] counts = new int[13];
+        //  2 2 3 4 5 6 7 8 9 T J Q K A
+        for(Card c : cards) {
+            counts[c.rank]++;
+        }
+        int topFrequency = 0;
+        for(int i=counts.length-1;i>0;i--){
+            if(counts[i] == 3){
+                return i;
+            }
+        }
+        for(int i=counts.length-1;i>0;i--){
+            if(counts[i] == 2){
+                return i;
+            }
+        }
+        return topRank(cards);
+    }
+
+    public static void printCards(Card[] cards){
         for(Card c : cards) {
             System.out.print(c.info() + " ");
         }
-        System.out.println(" " + id + " " + names[(int)id] + " " + evaluator[(int)id]);
-        return evaluator[(int)id];
     }
-
+    public static void printHand(long id){
+        System.out.println(names[(int)id]);
+    }
+    public static int topRank(Card[] cards){
+        int rank = cards[0].rank;
+        for(Card c : cards){
+            if( c.rank > rank ){ rank = c.rank; }
+        }
+        return rank;
+    }
     //checks for straight in first 5 cards of cards array
     public static boolean straight(Card[] cards) {
         long straight = 1<<cards[0].rank|1<<cards[1].rank|1<<cards[2].rank|1<<cards[3].rank|1<<cards[4].rank;
@@ -91,6 +137,7 @@ public class HandEvaluator {
             }
         }
         System.out.println("This is the top combination");
-        System.out.println(evaluate(topFive));
+        System.out.println("Hand rank: " + evaluate(topFive));
+        printCards(topFive);
     }
 }

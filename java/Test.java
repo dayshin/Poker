@@ -12,7 +12,7 @@ public class Test {
         for(int i = 0; i < 5; i++) {
             cards[i] = new Card(i%2,(i+1)%4);
         }
-        // HandEvaluator.evaluate(cards);
+        //HandEvaluator.evaluate(cards);
 
         //flush
         int suit = (int)(Math.random()*4);
