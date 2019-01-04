@@ -4,7 +4,7 @@ import java.util.*;
 public class HandEvaluator {
     private static final int[] results = {7,8,4,5,0,1,2,3,6};
     private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "placeholder", "trips","full house"};
-    public static final int[] evaluator = {160, 140, 80, 100, 0, 20, 40,-100, 60, 120 };
+    public static final int[] evaluator = {140, 160, 80, 100, 0, 20, 40,-100, 60, 120 };
 
     private HandEvaluator() {}
 

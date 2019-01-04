@@ -1,12 +1,12 @@
 public class Test {
     public static void main(String[] args) {
-        Card[] cards = new Card[5];
+        Card[] cards = new Card[7];
 
         //straight flush
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 7; i++) {
             cards[i] = new Card(i,0);
         }
-        //HandEvaluator.evaluate(cards);
+        HandEvaluator.sevenCardEvaluate(cards);
 
         //full house
         for(int i = 0; i < 5; i++) {
@@ -43,7 +43,7 @@ public class Test {
         for(int i = 0; i < 7; i++) {
             sevenCards[i] = new Card();
         }
-        HandEvaluator.sevenCardEvaluate(sevenCards);
+        //HandEvaluator.sevenCardEvaluate(sevenCards);
 
     }
 }
