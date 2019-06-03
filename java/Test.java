@@ -6,11 +6,10 @@ public class Test {
         for(int i = 0; i < 7; i++) {
             cards[i] = new Card(i,0);
         }
-<<<<<<< HEAD
         HandEvaluator.evaluate(cards);
-=======
         //HandEvaluator.sevenCardEvaluate(cards);
->>>>>>> parent of dd23b61... basic sort
+=======
+>>>>>>> parent of 4ea6a6e... d
 
         //full house
         for(int i = 0; i < 5; i++) {
@@ -50,14 +49,8 @@ public class Test {
         HandEvaluator.sevenCardEvaluate(sevenCards);
 
 =======
-        //HandEvaluator.evaluate(cards);
-
-        Card[] sevenCards = new Card[7];
-        for(int i = 0; i < 7; i++) {
-            sevenCards[i] = new Card();
-        }
+        HandEvaluator.evaluate(cards);
         //HandEvaluator.sevenCardEvaluate(sevenCards);
-        HandEvaluator.compareHands(cards, sevenCards);
->>>>>>> parent of dd23b61... basic sort
+>>>>>>> parent of 4ea6a6e... d
     }
 }
