@@ -3,6 +3,7 @@
 public class HandEvaluator {
     private static final int[] results = {7,8,4,5,0,1,2,3,6};
 <<<<<<< HEAD
+<<<<<<< HEAD
     private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "gote", "trips","full house"};
 =======
     private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "placeholder", "trips","full house"};
@@ -48,12 +49,62 @@ public class HandEvaluator {
                 } else {
                     if( counts[c] > 0 ) next = counts[c];
                 }
+=======
+    private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "placeholder", "trips","full house"};
+    public static final int[] evaluator = {140, 160, 80, 100, 0, 20, 40,-100, 60, 120 };
+
+    private HandEvaluator() {}
+
+
+    public static final int evaluate(Card[] cards){
+        long id = getId(cards);
+        //System.out.println(id);
+        int handRating = evaluator[(int)id];
+        handRating += rankOfTopFrequency(cards) + 2;
+        //System.out.println(handRating);
+
+        return handRating;
+    }
+
+
+    public static final long getId(Card[] cards) {
+        /*
+
+            step 1: sort by rules {frequency, rank}
+            step 2: categorize first 5 cards
+                switch:
+                    7 cards:    if type is Q,FH - return type
+                                else continue
+                    6 cards:    if type is Q,FH,T,TP - return type
+                                else continue
+                    5 cards:    return type
+            step 3: categorize other combinations
+                switch:
+                    7 cards:    possibilities - trips,twopair,pair,highcard
+                                alt check for straight: ?
+                                alt check for flush: counting suits?
+                    6 cards:    possibilities - pair,highcard
+
+
+        */
+
+        // hand has hole cards, a number, a top combination, and id
+        // in table you can do handeval.top
+
+        //step 1, %15 categorize
+        long id = 0;
+
+        int[] counts = new int[13];
+        for(Card c : cards) {
+            if((++counts[c.rank]) > 0) {
+                id |= (1L<<(c.rank*4))*((1L<<counts[c.rank])-1);
+>>>>>>> parent of dd23b61... basic sort
             }
-            max = next;
         }
         */
         id = id % 15 - 1;
 
+<<<<<<< HEAD
         /*if(id == 4) {
             if(straight(cards)) { id-=2; }
             if(flush(cards)) { id-=1; }
@@ -65,6 +116,17 @@ public class HandEvaluator {
         System.out.println();
         */
         return (int)id;
+=======
+        //step 2, check for straight and/or flush
+        if(id == 4) {
+            if(straight(cards)) { id-=2; }
+            if(flush(cards)) { id-=1; }
+        }
+        return id;
+        //System.out.println(" " + id + " " + names[(int)id] + " " + evaluator[(int)id]);
+        //printHand(id);
+        //return evaluator[(int)id] + topRank(cards);
+>>>>>>> parent of dd23b61... basic sort
     }
 
     //checks for straight in first 5 cards of cards array
@@ -83,8 +145,8 @@ public class HandEvaluator {
         Card[] topFive = new Card[5];
         int topNum = -1;
         for(int i=0;i<7;i++){
-            for(int j=i+1;j<7;j++){
-                //if(i == j) {continue;} redundant
+            for(int j=i;j<7;j++){
+                if(i == j) {continue;}
                 // System.out.println("first excluded is " + i);
                 // System.out.println("second excluded is " + j);
 
