@@ -6,6 +6,10 @@ public class Test {
         for(int i = 0; i < 5; i++) {
             cards[i] = new Card(i,0);
         }
+<<<<<<< HEAD
+=======
+        HandEvaluator.sevenCardEvaluate(cards);
+>>>>>>> parent of 6f6e09d... comparison between 7 card hands
 
         //full house
         for(int i = 0; i < 5; i++) {
@@ -46,5 +50,9 @@ public class Test {
 
         HandEvaluator.evaluate(cards);
         //HandEvaluator.sevenCardEvaluate(sevenCards);
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 6f6e09d... comparison between 7 card hands
     }
 }
