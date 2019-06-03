@@ -3,8 +3,12 @@ import java.util.*;
 
 public class HandEvaluator {
     private static final int[] results = {7,8,4,5,0,1,2,3,6};
+<<<<<<< HEAD
     private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "placeholder", "trips","full house"};
     public static final int[] evaluator = {160, 140, 80, 100, 0, 20, 40,-100, 60, 120 };
+=======
+    private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "gote", "trips","full house"};
+>>>>>>> parent of 4ea6a6e... d
 
     private HandEvaluator() {}
 
@@ -84,15 +88,7 @@ public class HandEvaluator {
 
         int[] counts = new int[13];
         for(Card c : cards) {
-            if((++counts[c.rank]) > 0) {
-                id |= (1L<<(c.rank*4))*((1L<<counts[c.rank])-1);
->>>>>>> parent of dd23b61... basic sort
-            }
-        }
-
-        id = id % 15 - 1;
-
-        if(id == 4) {
+            if(id == 4) {
             if(straight(cards)) { id-=2; }
             if(flush(cards)) { id-=1; }
         }
