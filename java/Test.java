@@ -8,11 +8,7 @@ public class Test {
         }
         HandEvaluator.evaluate(cards);
         //HandEvaluator.sevenCardEvaluate(cards);
-=======
-=======
         //HandEvaluator.evaluate(cards);
->>>>>>> parent of 27c463b... fixed straight flush back to better than quads
->>>>>>> parent of 771dae4... revert
 
         //full house
         for(int i = 0; i < 5; i++) {
@@ -51,12 +47,7 @@ public class Test {
         }
         HandEvaluator.sevenCardEvaluate(sevenCards);
 
-<<<<<<< HEAD
-=======
         HandEvaluator.evaluate(cards);
         //HandEvaluator.sevenCardEvaluate(sevenCards);
-=======
->>>>>>> parent of 27c463b... fixed straight flush back to better than quads
->>>>>>> parent of 771dae4... revert
     }
 }
