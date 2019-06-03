@@ -1,40 +1,28 @@
 //package poker
+import java.util.*;
 
 public class HandEvaluator {
     private static final int[] results = {7,8,4,5,0,1,2,3,6};
-<<<<<<< HEAD
-<<<<<<< HEAD
-    private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "gote", "trips","full house"};
-=======
     private static final String[] names = {"quads","straight flush","straight","flush","high card","pair","two pair", "placeholder", "trips","full house"};
     public static final int[] evaluator = {160, 140, 80, 100, 0, 20, 40,-100, 60, 120 };
->>>>>>> parent of 27c463b... fixed straight flush back to better than quads
 
     private HandEvaluator() {}
 
-    public static final int evaluate(Card[] cards) {
-        int suits = cards[0].suit()&cards[1].suit();
-        int ranks;
-        return e(suits,0);
-    }
-
-    private static final int e(int suits, int ranks) {
+    public static final int evaluate(Card[] cards){
         long id = 0;
-/*      int max = 0;
+        int max = 0;
         int next = 0;
         int[] sorted = new int[5];
 
         int[] counts = new int[13];
         for(Card c : cards) {
-            if(++counts[c.rank()] > 0) {
-                id |= (1L<<(c.rank()*4))*((1L<<counts[c.rank()])-1);
-                if(max < counts[c.rank()]) {
-                    max = counts[c.rank()];
+            if(++counts[c.rank] > 0) {
+                id |= (1L<<(c.rank*4))*((1L<<counts[c.rank])-1);
+                if(max < counts[c.rank]) {
+                    max = counts[c.rank];
                 }
             }
-
-
-
+        }
 
         // 41 32 311 221 2111 11111
         int p = 0;
@@ -101,11 +89,10 @@ public class HandEvaluator {
 >>>>>>> parent of dd23b61... basic sort
             }
         }
-        */
+
         id = id % 15 - 1;
 
-<<<<<<< HEAD
-        /*if(id == 4) {
+        if(id == 4) {
             if(straight(cards)) { id-=2; }
             if(flush(cards)) { id-=1; }
         }
@@ -114,7 +101,7 @@ public class HandEvaluator {
             System.out.print(Card.ranks[i] + " ");
         }
         System.out.println();
-        */
+
         return (int)id;
 =======
         //step 2, check for straight and/or flush
@@ -129,15 +116,50 @@ public class HandEvaluator {
 >>>>>>> parent of dd23b61... basic sort
     }
 
+    public static int rankOfTopFrequency(Card[] cards){
+        int[] counts = new int[13];
+        //  2 2 3 4 5 6 7 8 9 T J Q K A
+        for(Card c : cards) {
+            counts[c.rank]++;
+        }
+        int topFrequency = 0;
+        for(int i=counts.length-1;i>0;i--){
+            if(counts[i] == 3){
+                return i;
+            }
+        }
+        for(int i=counts.length-1;i>0;i--){
+            if(counts[i] == 2){
+                return i;
+            }
+        }
+        return topRank(cards);
+    }
+
+    public static void printCards(Card[] cards){
+        for(Card c : cards) {
+            System.out.print(c.info() + " ");
+        }
+    }
+    public static void printHand(long id){
+        System.out.println(names[(int)id]);
+    }
+    public static int topRank(Card[] cards){
+        int rank = cards[0].rank;
+        for(Card c : cards){
+            if( c.rank > rank ){ rank = c.rank; }
+        }
+        return rank;
+    }
     //checks for straight in first 5 cards of cards array
     public static boolean straight(Card[] cards) {
-        long straight = (cards[0].info|cards[1].info|cards[2].info|cards[3].info|cards[4].info) >> 4;
+        long straight = 1<<cards[0].rank|1<<cards[1].rank|1<<cards[2].rank|1<<cards[3].rank|1<<cards[4].rank;
         return straight/(straight&-straight) == 31 || straight == 0b1000000001111;
     }
 
     //checks for flush in first 5 cards of cards array
     public static boolean flush(Card[] cards) {
-        return (cards[0].info&cards[1].info&cards[2].info&cards[3].info&cards[4].info) > 0;
+        return cards[0].suit == cards[1].suit && cards[1].suit == cards[2].suit && cards[2].suit == cards[3].suit && cards[3].suit == cards[4].suit;
     }
 
     public static int sevenCardEvaluate(Card[] cards){
@@ -189,44 +211,4 @@ public class HandEvaluator {
             //printCards(hand2);
         }
     }
-
-    public static void printCards(Card[] cards){
-        for(Card c : cards) {
-            System.out.print(c.info() + " ");
-        }
-    }
-
-    public static void printHand(long id){
-        System.out.println(names[(int)id]);
-    }
-
-    public static int topRank(Card[] cards){
-        int rank = cards[0].rank();
-        for(Card c : cards){
-            if( c.rank() > rank ) { rank = c.rank(); }
-        }
-        return rank;
-    }
-
-    public static int rankOfTopFrequency(Card[] cards){
-        int[] counts = new int[13];
-        //  2 2 3 4 5 6 7 8 9 T J Q K A
-        for(Card c : cards) {
-            counts[c.rank()]++;
-        }
-        int topFrequency = 0;
-        for(int i=counts.length-1;i>0;i--){
-            if(counts[i] == 3){
-                return i;
-            }
-        }
-        for(int i=counts.length-1;i>0;i--){
-            if(counts[i] == 2){
-                return i;
-            }
-        }
-        return topRank(cards);
-    }
-
-
 }
