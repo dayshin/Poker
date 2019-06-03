@@ -6,7 +6,11 @@ public class Test {
         for(int i = 0; i < 5; i++) {
             cards[i] = new Card(i,0);
         }
+<<<<<<< HEAD
         HandEvaluator.evaluate(cards);
+=======
+        //HandEvaluator.evaluate(cards);
+>>>>>>> parent of 27c463b... fixed straight flush back to better than quads
 
         //full house
         for(int i = 0; i < 5; i++) {
@@ -37,7 +41,18 @@ public class Test {
         for(int i = 0; i < 5; i++) {
             cards[i] = new Card(i/2,i%4);
         }
+<<<<<<< HEAD
         HandEvaluator.evaluate(cards);
         //HandEvaluator.sevenCardEvaluate(sevenCards);
+=======
+        //HandEvaluator.evaluate(cards);
+
+        Card[] sevenCards = new Card[7];
+        for(int i = 0; i < 7; i++) {
+            sevenCards[i] = new Card();
+        }
+        HandEvaluator.sevenCardEvaluate(sevenCards);
+
+>>>>>>> parent of 27c463b... fixed straight flush back to better than quads
     }
 }
