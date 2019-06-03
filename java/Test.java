@@ -6,9 +6,6 @@ public class Test {
         for(int i = 0; i < 5; i++) {
             cards[i] = new Card(i,0);
         }
-        HandEvaluator.evaluate(cards);
-        //HandEvaluator.sevenCardEvaluate(cards);
-        //HandEvaluator.evaluate(cards);
 
         //full house
         for(int i = 0; i < 5; i++) {

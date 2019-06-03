@@ -121,7 +121,7 @@ public class HandEvaluator {
         return (cards[0].info&cards[1].info&cards[2].info&cards[3].info&cards[4].info) > 0;
     }
 
-    public static int sevenCardEvaluate(Card[] cards){
+    public static void sevenCardEvaluate(Card[] cards){
         Card[] mutableCards = new Card[5];
         Card[] topFive = new Card[5];
         int topNum = -1;
@@ -144,31 +144,9 @@ public class HandEvaluator {
                 }
             }
         }
-
         System.out.println("This is the top combination");
         System.out.println("Hand rank: " + evaluate(topFive));
         printCards(topFive);
-        System.out.println();
-        System.out.println();
-        return topNum;
-    }
-
-    public static void compareHands(Card[] hand1, Card[] hand2){
-        int value1 = sevenCardEvaluate(hand1);
-        int value2 = sevenCardEvaluate(hand2);
-        if( value1 > value2){
-            System.out.println("Hand 1 wins!");
-            //printCards(hand1);
-        }
-        else if ( value2 > value1){
-            System.out.println("Hand 2 wins!");
-            //printCards(hand2);
-        }
-        else {
-            System.out.println("Split the pot!");
-            //printCards(hand1);
-            //printCards(hand2);
-        }
     }
 
     public static void printCards(Card[] cards){
