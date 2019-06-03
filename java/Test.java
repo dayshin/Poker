@@ -7,6 +7,10 @@ public class Test {
             cards[i] = new Card(i,0);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        HandEvaluator.sevenCardEvaluate(cards);
+>>>>>>> parent of 6f6e09d... comparison between 7 card hands
 =======
         HandEvaluator.sevenCardEvaluate(cards);
 >>>>>>> parent of 6f6e09d... comparison between 7 card hands
@@ -50,9 +54,6 @@ public class Test {
 
         HandEvaluator.evaluate(cards);
         //HandEvaluator.sevenCardEvaluate(sevenCards);
-<<<<<<< HEAD
-=======
 
->>>>>>> parent of 6f6e09d... comparison between 7 card hands
     }
 }
