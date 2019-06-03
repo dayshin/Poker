@@ -8,6 +8,10 @@ public class Test {
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        HandEvaluator.sevenCardEvaluate(cards);
+>>>>>>> parent of 6f6e09d... comparison between 7 card hands
 =======
         HandEvaluator.sevenCardEvaluate(cards);
 >>>>>>> parent of 6f6e09d... comparison between 7 card hands

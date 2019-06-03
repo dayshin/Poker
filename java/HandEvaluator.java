@@ -147,6 +147,7 @@ public class HandEvaluator {
         System.out.println("This is the top combination");
         System.out.println("Hand rank: " + evaluate(topFive));
         printCards(topFive);
+<<<<<<< HEAD
     }
 
     public static void printCards(Card[] cards){
@@ -185,6 +186,8 @@ public class HandEvaluator {
             }
         }
         return topRank(cards);
+=======
+>>>>>>> parent of 6f6e09d... comparison between 7 card hands
     }
 
 
